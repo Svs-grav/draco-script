@@ -18,7 +18,9 @@ const runCommand = (cmd) => {
 
 // Function to optimize a single GLB file using npx to run gltf-transform
 const optimizeGLB = async (inputFile, outputFile) => {
-  const cmd = `npx gltf-transform optimize "${inputFile}" "${outputFile}" --texture-compress webp`;
+  // const cmd = `npx gltf-transform optimize "${inputFile}" "${outputFile}" --compress draco --texture-compress auto --simplify false --texture-size 1024`;
+  const cmd = `npx gltf-transform optimize "${inputFile}" "${outputFile}" --compress draco --texture-compress webp --simplify false --texture-size 1024`;
+  // const cmd = `npx gltf-transform draco "${inputFile}" "${outputFile}"`;
   await runCommand(cmd);
   console.log(`Optimized ${inputFile} -> ${outputFile}`);
 };
@@ -64,10 +66,10 @@ const processFilesWithConcurrency = async (files, outputDir, concurrency) => {
     const inputFile = queue.shift();
     const baseName = path.basename(inputFile, ".glb");
     const optimizedFile = path.join(outputDir, `${baseName}_optimized.glb`);
-    const gzippedFile = `${optimizedFile}.gz`;
+    // const gzippedFile = `${optimizedFile}.gz`;
 
     const task = optimizeGLB(inputFile, optimizedFile)
-      .then(() => gzipFile(optimizedFile, gzippedFile))
+      // .then(() => gzipFile(optimizedFile, gzippedFile))
       .finally(() => {
         activeTasks.splice(activeTasks.indexOf(task), 1);
         runNext();

@@ -3,7 +3,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compress-1": "node index.js input output 1",
+    "compress-2": "node index.js input output 2",
+    "compress-8": "node index.js input output 8",
+    "compress-12 "node index.js input output 12",
+    "compress-16": "node index.js input output 16",
   },
   "author": "",
   "license": "ISC",
